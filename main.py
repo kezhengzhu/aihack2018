@@ -64,12 +64,14 @@ def drop_columns(df,percentage):
         current_percentage_missing = (current_column.isna().sum())/len(current_column)
         if current_percentage_missing > percentage:
             columns_missing_percentages.append(column)
+    print("feature drop ratio : {} ".format(len(columns_missing_percentages)/len(df.columns)))
     new_df = df.drop(columns_missing_percentages,axis = 1)
     return(new_df)
 
 def drop_rows(df):
     rows_missing_data_indexes_df = df.notnull().all(axis=1)
     new_df = df[rows_missing_data_indexes_df]
+    print("raw drop ratio : {} ".format(len(new_df)/len(df)))
     return new_df
 
 def write_csv(filename,df):
@@ -78,7 +80,7 @@ def write_csv(filename,df):
 def drop_missing_values_and_save(filename,df,percentage):
     current_df = drop_columns(df,percentage)
     current_df = drop_rows(current_df)
-    write_csv(filename,current_df)
+    write_csv('dropped'+filename,current_df)
     print('Done !')
 
 def main():
