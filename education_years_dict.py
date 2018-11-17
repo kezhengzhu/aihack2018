@@ -37,3 +37,12 @@ diplomalvldict = {
     'Doctorate degree': 5
 }
 
+povertydict ={
+    "Under .50" : 0,
+    ".50 to .99" : 1,
+    "1.00 to 1.24" : 2,
+    "1.25 to 1.49" : 3,
+    "1.50 to 1.84" : 4,
+    "1.85 to 1.99" : 5,
+    "2.00 and over" : 6
+}

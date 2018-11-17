@@ -84,7 +84,7 @@ def drop_missing_values_and_save(filename,df,percentage):
     print('Done !')
 
 def main():
-    print("placeholder")
+    None
 
 if __name__ == '__main__':
     main()
