@@ -83,8 +83,29 @@ def drop_missing_values_and_save(filename,df,percentage):
     write_csv('dropped_'+filename,current_df)
     print('Done !')
 
+def FormTrainingData():
+    outputlist = ['B15002e3',
+                     'B15002e4', 'B15002e5', 'B15002e6', 'B15002e7',
+                     'B15002e8', 'B15002e9', 'B15002e10', 'B15002e11',
+                     'B15002e12', 'B15002e13', 'B15002e14', 'B15002e15',
+                     'B15002e16', 'B15002e17', 'B15002e18', 'B15002e20',
+                     'B15002e21', 'B15002e22', 'B15002e23', 'B15002e24',
+                     'B15002e25', 'B15002e26', 'B15002e27', 'B15002e28',
+                     'B15002e29', 'B15002e30', 'B15002e31', 'B15002e32',
+                     'B15002e33', 'B15002e34', 'B15002e35']
+
+    df = get_data_by_key(outputlist)
+    df.to_csv('TrainingData.csv', index=False)
+
+def MergeonGeoID(x,y):
+    dfx = pd.read_csv(x).set_index('GEOID')
+    dfy = pd.read_csv(y).set_index('GEOID')
+    center = dfy.join(dfx)
+    center.to_csv('InputOutputMerged.csv')
+
+
 def main():
     None
 
 if __name__ == '__main__':
-    main()
+    MergeonGeoID('TrainingData.csv', 'OurInputs.csv')
