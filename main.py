@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-
+import os
 
 def db(*args):
     dbOn = True
@@ -47,7 +47,7 @@ def get_data_by_key(keylist):
             file[key] = files[key]
     ldf = dict()
     for key in file:
-        ldf[key] = [pd.read_csv(file[key])]
+        ldf[key] = pd.read_csv(file[key])
 
     fout = pd.read_csv('california/train/X00_COUNTS.csv')['GEOID']
     fout = fout.to_frame()
