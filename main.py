@@ -71,16 +71,16 @@ def drop_columns(df,percentage):
 def drop_rows(df):
     rows_missing_data_indexes_df = df.notnull().all(axis=1)
     new_df = df[rows_missing_data_indexes_df]
-    print("raw drop ratio : {} ".format(len(new_df)/len(df)))
+    print("raw drop ratio : {} ".format(1-(len(new_df)/len(df))))
     return new_df
 
 def write_csv(filename,df):
-    df.to_csv('California/train/'+filename+'.csv')
+    df.to_csv('California/train/'+filename+'.csv',index = False)
 
 def drop_missing_values_and_save(filename,df,percentage):
     current_df = drop_columns(df,percentage)
     current_df = drop_rows(current_df)
-    write_csv('dropped'+filename,current_df)
+    write_csv('dropped_'+filename,current_df)
     print('Done !')
 
 def main():
