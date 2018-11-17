@@ -68,10 +68,8 @@ def drop_columns(df,percentage):
     return(new_df)
 
 def drop_rows(df):
-    len_columns = len(df.columns)
-    rows_missing_data_indexes = df.notnull().all(axis=1)
-    print(rows_missing_data_indexes)
-    new_df = df[rows_missing_data_indexes]
+    rows_missing_data_indexes_df = df.notnull().all(axis=1)
+    new_df = df[rows_missing_data_indexes_df]
     return new_df
 
 def main():
