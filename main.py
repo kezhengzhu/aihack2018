@@ -42,7 +42,7 @@ def get_data_by_key(keylist):
     file = dict()
     for key in numkeys:
         if key not in files:
-            db('B{} is not in the list of files available'.format(numkey))
+            db('B{} is not in the list of files available'.format(key))
         else:
             file[key] = files[key]
     ldf = dict()
@@ -71,6 +71,15 @@ def drop_rows(df):
     rows_missing_data_indexes_df = df.notnull().all(axis=1)
     new_df = df[rows_missing_data_indexes_df]
     return new_df
+
+def write_csv(filename,df):
+    df.to_csv('California/train/'+filename+'.csv')
+
+def drop_missing_values_and_save(filename,df,percentage):
+    current_df = drop_columns(df,percentage)
+    current_df = drop_rows(current_df)
+    write_csv(filename,current_df)
+    print('Done !')
 
 def main():
     print("placeholder")
