@@ -57,6 +57,17 @@ def get_data_by_key(keylist):
             fout[keylist[i]] = ldf[k][keylist[i]]
     return fout
 
+def drop_columns(df,percentage):
+    columns_missing_percentages = []
+    for column in df.columns:
+        current_column = df[column]
+        current_percentage_missing = (current_column.isna().sum())/len(current_column)
+        if current_percentage_missing > percentage:
+            columns_missing_percentages.append(column)
+    new_df = df.drop(columns_missing_percentages,axis = 1)
+    return(new_df)
+
+
 def main():
     print("placeholder")
 
