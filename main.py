@@ -20,6 +20,15 @@ def Full_name_parser():
             List_of_names.append(parsed_line)
     return List_of_names
 
+def drop_columns(df,percentage):
+    columns_missing_percentages = []
+    for column in df.columns:
+        current_column = df[column]
+        current_percentage_missing = (current_column.isna().sum())/len(current_column)
+        if current_percentage_missing > percentage:
+            columns_missing_percentages.append(column)
+    new_df = df.drop(columns_missing_percentages,axis = 1)
+    return(new_df)
 
 def main():
     print("placeholder")
