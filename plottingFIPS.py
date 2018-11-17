@@ -1,7 +1,7 @@
 import pandas as pd
 
 # get raw data
-df = pd.read_csv('aihack2018/cleanedSimpleData.csv')
+df = pd.read_csv('aihack2018/OurInputs.csv')
 counties_raw = pd.read_excel('aihack2018/geocodes.xlsx',sheet='Sheet1', dtype={'FIPS code':object})
 counties = counties_raw[['County','FIPS code']]
 
@@ -26,6 +26,5 @@ fig = ff.create_choropleth(
     fips=fips, values=values, scope=['CA'],
     binning_endpoints=[10, 50, 100, 500, 1000, 1500, 5000], colorscale=colorscale,
     county_outline={'color': 'rgb(255,255,255)', 'width': 0.5}, round_legend_values=True,
-    legend_title='Number of data points', title='Distribution of data'
-)
+    legend_title='Number of data points', title='Distribution of data')
 plotly.plotly.iplot(fig, filename='choropleth_california_and_surr_states_outlines')
