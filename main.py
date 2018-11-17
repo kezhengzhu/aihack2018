@@ -3,9 +3,7 @@ import pandas as pd
 import os
 
 def db(*args):
-    dbOn = True
     print(*args)
-
 
 def load_data(filename):
     loaded_data = pd.read_csv('California/train/'+filename+'.csv')
