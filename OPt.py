@@ -1,6 +1,6 @@
 import main
 import pandas as pd
 
-a = main.CombineOutputGenders(pd.read_csv(r'california\train\Training_set_final.csv'))
-
-a.to_csv('AggregatedOutputs.csv', index=False)
+x = pd.read_csv(r'california\train\NewInputs.csv')
+y = pd.read_csv('AggregatedOutputs.csv')
+main.MergeonGeoID(x, y)
