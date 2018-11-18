@@ -102,8 +102,8 @@ def MergeonGeoID(x,y):
     center.to_csv('InputOutputMerged.csv')
 
 
-def GetXy():
-    Data =  np.copy(load_data('Training_set_final'))[:,1:]
+def GetXy(filename ='Training_set_final' ):
+    Data =  np.copy(load_data(filename))[:,1:]
     n_features = Data.shape[1]
     X = Data[:,:n_features-32]
     y = Data[:,-32:]
