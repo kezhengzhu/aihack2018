@@ -108,6 +108,7 @@ def CombineOutputGenders(df):
     aggregated_outputs = pd.DataFrame()
     for i in iterator:
         aggregated_outputs['y{}'.format(n)] = df[cols.format(str(i))] + df[cols.format(str(i + 17))]
+        n += 1
     return aggregated_outputs
 
 
