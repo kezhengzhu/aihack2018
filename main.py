@@ -109,8 +109,3 @@ def GetXy():
     y = Data[:,-32:]
     return X,y
 
-def main():
-    None
-
-if __name__ == '__main__':
-    None
