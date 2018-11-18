@@ -145,8 +145,8 @@ def GetXy(filename ='Training_set_final',n_output = 32 ):
 
 def GetyX(filename ='NewMergedTrainingSet',n_output = 17 ):
     Data =  np.copy(load_data(filename))[:,1:]
-    X = Data[:,n_output+1:]
-    y = Data[:,1:n_output+1]
+    X = Data[:,n_output:]
+    y = Data[:,1:n_output]
     print("X.shape : {} ".format(X.shape))
     print("y.shape : {} ".format(y.shape))
     return X,y
