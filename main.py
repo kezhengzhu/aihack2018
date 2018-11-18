@@ -127,7 +127,7 @@ def Train_Model(TestSize ,filename ='Training_set_final'):
     X_train_scaled = scaler_X.transform(X_train)
     y_train_scaled = scaler_y.transform(y_train)
 
-    MLModel = RandomForestRegressor(n_estimators=100, random_state=0)
+    MLModel = RandomForestRegressor(n_estimators=200, random_state=0)
     MLModel.fit(X_train_scaled,y_train_scaled)
 
 
