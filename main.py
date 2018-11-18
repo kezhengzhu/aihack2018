@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.externals import joblib
 from sklearn import preprocessing
+import scipy.special as special
 
 def db(*args):
     dbOn = True
@@ -101,6 +102,16 @@ def FormTrainingData():
     df = get_data_by_key(outputlist)
     df.to_csv('TrainingData.csv', index=False)
 
+def CombineOutputGenders(df):
+    cols = 'B15002e{}-y'
+    iterator = range(3, 19)
+    n = 0
+    aggregated_outputs = pd.DataFrame()
+    for i in iterator:
+        aggregated_outputs['y{}'.format(n)] = df[cols.format(str(i))] + df[cols.format(str(i + 17))]
+    return aggregated_outputs
+
+
 def MergeonGeoID(x,y):
     dfx = pd.read_csv(x).set_index('GEOID')
     dfy = pd.read_csv(y).set_index('GEOID')
@@ -115,10 +126,9 @@ def GetXy(filename ='Training_set_final' ):
     y = Data[:,-32:]
     return X,y
 
-def Train_Model(TestSize ,filename ='Training_set_final'):
+def Train_Model(TestSize=0.05 ,filename ='Training_set_final'):
 
     X,y = GetXy(filename)
-    TestSize = 0.05
     X_train,X_test,y_train,y_test = train_test_split(X, y, test_size=TestSize)
 
     scaler_X = preprocessing.StandardScaler().fit(X_train)
@@ -127,8 +137,8 @@ def Train_Model(TestSize ,filename ='Training_set_final'):
     X_train_scaled = scaler_X.transform(X_train)
     y_train_scaled = scaler_y.transform(y_train)
 
-    MLModel = RandomForestRegressor(n_estimators=100, random_state=0)
-    MLModel.fit(X_train_scaled,y_train_scaled)
+    MLModel = RandomForestRegressor(n_estimators=200, random_state=0, n_jobs=2, warm_start=True, oob_score=True)
+    MLModel.fit(X_train_scaled, y_train_scaled)
 
 
     X_test_scaled = scaler_X.transform(X_test)
@@ -138,4 +148,3 @@ def Train_Model(TestSize ,filename ='Training_set_final'):
     print("Testing Score : {} \n".format(np.around(MLModel.score(X_test_scaled,y_test_scaled),decimals = 4)))
 
     return MLModel
-
