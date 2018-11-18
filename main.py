@@ -143,7 +143,7 @@ def GetXy(filename ='Training_set_final',n_output = 32 ):
     y = Data[:,-32:]
     return X,y
 
-def GetyX(filename ='NewMergedTrainingSet',n_output = 17 ):
+def GetyX(filename ='NewMergedTrainingSet',n_output = 16 ):
     Data =  np.copy(load_data(filename))[:,1:]
     X = Data[:,n_output+1:]
     y = Data[:,1:n_output+1]
