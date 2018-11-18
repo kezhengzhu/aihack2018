@@ -5,7 +5,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.externals import joblib
 from sklearn import preprocessing
-import scipy.special as special
 
 def db(*args):
     dbOn = True
@@ -137,8 +136,8 @@ def Train_Model(TestSize=0.05 ,filename ='Training_set_final'):
     X_train_scaled = scaler_X.transform(X_train)
     y_train_scaled = scaler_y.transform(y_train)
 
-    MLModel = RandomForestRegressor(n_estimators=200, random_state=0, n_jobs=2, warm_start=True, oob_score=True)
-    MLModel.fit(X_train_scaled, y_train_scaled)
+    MLModel = RandomForestRegressor(n_estimators=200, random_state=0)
+    MLModel.fit(X_train_scaled,y_train_scaled)
 
 
     X_test_scaled = scaler_X.transform(X_test)
@@ -148,3 +147,4 @@ def Train_Model(TestSize=0.05 ,filename ='Training_set_final'):
     print("Testing Score : {} \n".format(np.around(MLModel.score(X_test_scaled,y_test_scaled),decimals = 4)))
 
     return MLModel
+
