@@ -29,3 +29,6 @@ def get_test_data_by_key(keylist,testdir):
 
 testdf = get_test_data_by_key(get_list(), 'test23/test23')
 testInputs = combine_inputs(testdf)
+
+testdf.to_csv('test23/test23/InputsRaw.csv', index=False)
+testInputs.to_csv('test23/test23/InputsNew.csv', index=False)
