@@ -199,6 +199,10 @@ def combine_inputs(df):
 
     return dfout
 
-df = pd.read_csv('california/train/dropped_OurInputs.csv')
-dfout = combine_inputs(df)
-dfout.to_csv('california/train/NewInputs.csv', index=False)
+def main():
+    df = pd.read_csv('california/train/dropped_OurInputs.csv')
+    dfout = combine_inputs(df)
+    dfout.to_csv('california/train/NewInputs.csv', index=False)
+
+if __name__ == '__main__':
+    main()
