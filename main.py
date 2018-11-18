@@ -104,19 +104,36 @@ def FormTrainingData():
 def CombineOutputGenders(df):
     cols = 'B15002e{}-y'
     iterator = range(3, 19)
+    friendly_name_dict = {3: 'No Schooling',
+                          4: 'Up to 4th Grade',
+                          5: '5-6th Grade',
+                          6: '7-8th Grade',
+                          7: '9th Grade',
+                          8: '10th Grade',
+                          9: '11th Grade',
+                          10: '12th Grade - No Diploma',
+                          11: 'High School Diploma',
+                          12: '<1 Year of College',
+                          13: 'Some College Education, No Degree',
+                          14: 'Associates Degree',
+                          15: 'Bachelors Degree',
+                          16: 'Masters Degree',
+                          17: 'Professional Degree',
+                          18: 'PhD'}
     n = 0
     aggregated_outputs = pd.DataFrame()
     for i in iterator:
-        aggregated_outputs['y{}'.format(n)] = df[cols.format(str(i))] + df[cols.format(str(i + 17))]
+        aggregated_outputs[friendly_name_dict[i]] = df[cols.format(str(i))] + df[cols.format(str(i + 17))]
         n += 1
+        aggregated_outputs['GEOID'] = df['GEOID']
     return aggregated_outputs
 
 
 def MergeonGeoID(x,y):
-    dfx = pd.read_csv(x).set_index('GEOID')
-    dfy = pd.read_csv(y).set_index('GEOID')
+    dfx = x.set_index('GEOID')
+    dfy = y.set_index('GEOID')
     center = dfy.join(dfx)
-    center.to_csv('InputOutputMerged.csv')
+    center.to_csv('NewMergedTrainingSet.csv')
 
 
 def GetXy(filename ='Training_set_final' ):
