@@ -1,6 +1,10 @@
 import numpy as np
 import pandas as pd
 import os
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.externals import joblib
+from sklearn import preprocessing
 
 def db(*args):
     dbOn = True
@@ -110,4 +114,28 @@ def GetXy(filename ='Training_set_final' ):
     X = Data[:,:n_features-32]
     y = Data[:,-32:]
     return X,y
+
+def Train_Model(TestSize ,filename ='Training_set_final'):
+
+    X,y = GetXy(filename)
+    TestSize = 0.05
+    X_train,X_test,y_train,y_test = train_test_split(X, y, test_size=TestSize)
+
+    scaler_X = preprocessing.StandardScaler().fit(X_train)
+    scaler_y = preprocessing.StandardScaler().fit(y_train)
+
+    X_train_scaled = scaler_X.transform(X_train)
+    y_train_scaled = scaler_y.transform(y_train)
+
+    MLModel = RandomForestRegressor(n_estimators=100, random_state=0)
+    MLModel.fit(X_train_scaled,y_train_scaled)
+
+
+    X_test_scaled = scaler_X.transform(X_test)
+    y_test_scaled = scaler_y.transform(y_test)
+
+    print("Training Score : {} ".format(np.around(MLModel.score(X_train_scaled,y_train_scaled),decimals = 4)))
+    print("Testing Score : {} \n".format(np.around(MLModel.score(X_test_scaled,y_test_scaled),decimals = 4)))
+
+    return MLModel
 
