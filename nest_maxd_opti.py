@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 def run_mult(maxd,nest):
     trains = []
     tests = []
-    for i in range(4):
+    for i in range(2):
         MLModel,train,test = Train_Model_yX_exp(TestSize=0.1,maxd=maxd,nest=nest)
         trains = trains + [train]
         tests = tests + [test]
@@ -15,7 +15,7 @@ def run_mult(maxd,nest):
 
 trains= []
 tests = []
-nests = [50]
+nests = [50,100,150,200,250,300,350]
 for nest in nests:
     maxd = 6
     train,test = run_mult(maxd,nest)
@@ -24,5 +24,6 @@ for nest in nests:
 
 plt.plot(nests,trains,'r--')
 plt.plot(nests,tests,'b--')
+plt.savefig('nest.png',bbox_inches='tight')
 plt.show()
 
