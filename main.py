@@ -196,3 +196,28 @@ def Train_Model(TestSize=0.05 ,filename ='Training_set_final'):
 
     return MLModel
 
+def Train_Model_yX_exp(TestSize=0.05 ,filename ='NewMergedTrainingSet'):
+
+    X,y = GetyX(filename)
+    y = y[:,-4:] # taking the last 4 features
+    X_train,X_test,y_train,y_test = train_test_split(X, y, test_size=TestSize)
+    print(X_train.shape)
+    print(y_train.shape)
+
+    scaler_X = preprocessing.StandardScaler().fit(X_train)
+    scaler_y = preprocessing.StandardScaler().fit(y_train)
+
+    X_train_scaled = scaler_X.transform(X_train)
+    y_train_scaled = scaler_y.transform(y_train)
+
+    MLModel = RandomForestRegressor(n_estimators=200, random_state=0)
+    MLModel.fit(X_train_scaled,y_train_scaled)
+
+    X_test_scaled = scaler_X.transform(X_test)
+    y_test_scaled = scaler_y.transform(y_test)
+
+    print("Training Score : {} ".format(np.around(MLModel.score(X_train_scaled,y_train_scaled),decimals = 4)))
+    print("Testing Score : {} \n".format(np.around(MLModel.score(X_test_scaled,y_test_scaled),decimals = 4)))
+
+    return MLModel
+
